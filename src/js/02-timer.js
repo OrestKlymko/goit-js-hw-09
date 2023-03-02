@@ -15,7 +15,6 @@ const seconds = document.querySelector('span[data-seconds]')
 
 startBtn.setAttribute('disabled',true)
 let inputTime ;
-let resultTime
 
 
 flatpickr("#datetime-picker",{
@@ -25,8 +24,7 @@ flatpickr("#datetime-picker",{
   minuteIncrement: 1,
   onClose(selectedDates) {
     inputTime = selectedDates[0].getTime();
-    resultTime = inputTime - Date.now();
-    if(resultTime<0){
+    if(inputTime - Date.now()<0){
       Notiflix.Notify.failure("Please choose a date in the future");
     }
     else {
@@ -37,8 +35,8 @@ flatpickr("#datetime-picker",{
         // function start(){
         let timeId = setInterval(()=>{
 
-          resultTime = resultTime-1000;
-          let k = convertMs(resultTime)
+          let k = convertMs(inputTime-Date.now())
+          console.log(k)
           if(k.seconds==0&&k.minutes==0&&k.days==0&&k.hours==0){
             clearInterval(timeId);
           }
@@ -66,13 +64,13 @@ function addLeadingZero(value){
   const day = hour * 24;
 
   // Remaining days
-  const days = addLeadingZero(Math.floor(ms / day));
+  const days = (Math.floor(ms / day));
   // Remaining hours
-  const hours = addLeadingZero(Math.floor((ms % day) / hour));
+  const hours = (Math.floor((ms % day) / hour));
   // Remaining minutes
-  const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
+  const minutes = (Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
-  const seconds = addLeadingZero(Math.floor((((ms % day) % hour) % minute) / second));
+  const seconds = (Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
 }
