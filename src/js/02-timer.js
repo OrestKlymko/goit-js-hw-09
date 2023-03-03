@@ -36,6 +36,8 @@ flatpickr("#datetime-picker",{
         let timeId = setInterval(()=>{
 
           let k = convertMs(inputTime-Date.now())
+          let b = addLeadingZero(k)
+          console.log(b)
           console.log(k)
           if(k.seconds==0&&k.minutes==0&&k.days==0&&k.hours==0){
             clearInterval(timeId);
@@ -64,11 +66,11 @@ function addLeadingZero(value){
   const day = hour * 24;
 
   // Remaining days
-  const days = (Math.floor(ms / day));
+  const days = addLeadingZero(Math.floor(ms / day));
   // Remaining hours
-  const hours = (Math.floor((ms % day) / hour));
+  const hours = addLeadingZero(Math.floor((ms % day) / hour));
   // Remaining minutes
-  const minutes = (Math.floor(((ms % day) % hour) / minute));
+  const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
   const seconds = (Math.floor((((ms % day) % hour) % minute) / second));
 
